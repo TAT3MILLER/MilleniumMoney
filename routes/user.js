@@ -6,20 +6,27 @@ const User = require("../models/user.js");
 
 
 router.get('/login', (req, res) => {
-    //res.render('login.ejs')
-    res.send('fuck you')
+    res.render('login.ejs')
 })
 
 router.get('/register', (req, res) => {
-    res.render('register.ejs')
+    res.render('register')
 })
 
 
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-    failureFlash: true
-}))
+// router.post('/login', passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+// }))
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/users/login',
+    failureFlash: true,
+  })(req, res, next);
+});
 
 
 
@@ -43,7 +50,7 @@ router.post('/register', async (req, res) => {
     }
 })
 
-
+// logout
 // router.D('/logout', (req, res) => {
 //     req.logOut()
 //     res.redirect('/login')

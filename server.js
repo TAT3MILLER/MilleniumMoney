@@ -14,24 +14,29 @@ const exEjsLay = require('express-ejs-layouts');
 //const indexRouter = require('./routes/index')
 //const userRouter = require('./routes/user')
 
-
-//passport initialization
-const initializePassport = require('./passportconfig')
-initializePassport(passport, 
-    email => user.fetch(user => user.email === email),
-    id => user.fetch(user => user.id === id)
-)
+require("./passportconfig")(passport)
 
 
-app.set('view engine', 'ejs')
+// const initializePassport = require('./passportconfig')
+// initializePassport(passport, 
+//     email => user.fetch(user => user.email === email),
+//     id => user.fetch(user => user.id === id)
+// )
+
+app.use(express.static(__dirname + '/public'))
 app.set('views', __dirname + '/views')
+app.set('view engine', 'ejs')
 app.set('layout', 'layout')
 app.use (exEjsLay)
-app.use(express.static('public'))
+
 
 app.use(express.urlencoded({ extened: false}))
 app.use(flash())
 
+
+//passport initialization
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -41,13 +46,12 @@ app.use(session({
 
 
 //app.use(bodyParser.urlencoded({ limit: '1mb', extended: false}))
-app.use(passport.initialize())
-app.use(passport.session())
+
 
 
 // app.use('/', indexRouter);
 app.use('/', require('./routes/index'));
-app.use('/user', require('./routes/user'));
+app.use('/', require('./routes/user'));
 
 
 // connect mongoose to db
