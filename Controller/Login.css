@@ -1,3 +1,13 @@
 html{
     background-image: url('/Images/Background.jpg');
+    text-align: center;
+}
+
+#email{
+    margin-left: 23px;
+    margin-bottom: 25px;
+}
+
+#pwd{
+    margin-bottom: 25px;
 }

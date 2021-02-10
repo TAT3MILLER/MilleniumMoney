@@ -1,3 +1,21 @@
 html{
     background-image: url('/Images/Background.jpg');
+    text-align: center;
+}
+
+#username #email #password #confirmpassword{
+    margin-bottom: 25px;
+}
+
+
+#username{
+    margin-left: 53px;
+}
+
+#email{
+    margin-left: 80px;
+}
+
+#password{
+    margin-left: 18px;
 }
